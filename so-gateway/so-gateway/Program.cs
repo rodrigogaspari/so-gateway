@@ -6,10 +6,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Carregar config do Ocelot
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
+
+// Adiciona serviços do Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddHttpClient();
+
 // Adicionar Ocelot
 builder.Services.AddOcelot();
 
 var app = builder.Build();
+
 
 // Rastro de requisições para debug
 app.Use(async (context, next) =>
